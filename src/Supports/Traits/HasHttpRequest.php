@@ -226,7 +226,7 @@ trait HasHttpRequest
 
   public function getConnectTimeout(): float
   {
-    return property_exists($this, 'connectTimeout') ? $this->connectTimeout : 3.0;
+    return property_exists($this, 'connectTimeout') ? $this->connectTimeout : 3.14;
   }
 
   public function setConnectTimeout(float $connectTimeout): self

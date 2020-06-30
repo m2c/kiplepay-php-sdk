@@ -158,15 +158,15 @@ class Support
     $privateKey = self::$instance->private_key;
 
     if (is_null($privateKey)) {
-        throw new InvalidConfigException('Missing Config -- [private_key]');
+      throw new InvalidConfigException('Missing Config -- [private_key]');
     }
 
     if (Str::endsWith($privateKey, '.pem')) {
-        $privateKey = openssl_pkey_get_private($privateKey);
+      $privateKey = openssl_pkey_get_private($privateKey);
     } else {
-        $privateKey = "-----BEGIN RSA PRIVATE KEY-----\n".
-            wordwrap($privateKey, 64, "\n", true).
-            "\n-----END RSA PRIVATE KEY-----";
+      $privateKey = "-----BEGIN RSA PRIVATE KEY-----\n".
+          wordwrap($privateKey, 64, "\n", true).
+          "\n-----END RSA PRIVATE KEY-----";
     }
 
     openssl_sign(self::getSignContent($params), $sign, $privateKey, OPENSSL_ALGO_SHA256);
@@ -309,30 +309,30 @@ class Support
   }
 
   /**
-     * processingApiResult.
-     *
-     * @author Evans <evans.yang@greenpacket.com.cn>
-     *
-     * @param $result
-     *
-     * @throws GatewayException
-     * @throws InvalidConfigException
-     * @throws InvalidSignException
-     */
-    protected static function processingApiResult($result): Collection
-    {
-      if (!isset($result['sign']) || '0' != $result['code']) {
-        throw new GatewayException('API Error:'.$result['msg'].(isset($result['sub_code']) ? (' - '.$result['sub_code']) : ''), $result);
-      }
-
-      if (self::verifySign($result[$method], true, $result['sign'])) {
-        return new Collection($result[$method]);
-      }
-
-      Events::dispatch(new Events\SignFailed('', $result));
-
-      throw new InvalidSignException('The Response Sign Verify FAILED', $result);
+   * processingApiResult.
+   *
+   * @author Evans <evans.yang@greenpacket.com.cn>
+   *
+   * @param $result
+   *
+   * @throws GatewayException
+   * @throws InvalidConfigException
+   * @throws InvalidSignException
+   */
+  protected static function processingApiResult($result): Collection
+  {
+    if (!isset($result['sign']) || '0' != $result['code']) {
+      throw new GatewayException('API Error:'.$result['msg'].(isset($result['sub_code']) ? (' - '.$result['sub_code']) : ''), $result);
     }
+
+    if (self::verifySign($result[$method], true, $result['sign'])) {
+      return new Collection($result[$method]);
+    }
+
+    Events::dispatch(new Events\SignFailed('', $result));
+
+    throw new InvalidSignException('The Response Sign Verify FAILED', $result);
+  }
 
   /**
    * Set Http options.
@@ -364,9 +364,9 @@ class Support
   }
   
   /**
-   * Undocumented function
+   * buildUrlEncode
    *
-   * @author Evans Yang <evans.yang@greenpacket.com.cn>
+   * @author Evans <evans.yang@greenpacket.com.cn>
    * @param string $method    get | post
    * @param string $endpoint  the request uri.
    * @param array $data       build data.
