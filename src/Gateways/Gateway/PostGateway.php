@@ -28,19 +28,21 @@ class PostGateway extends KipleGateway
   {
     $biz_array = json_decode($payload['biz_content'], true);
 
-    if(isset($biz_array['request_uri']) && $biz_array['request_uri']){
-      $endpoint = $endpoint.$biz_array['request_uri'];
-      unset($biz_array['request_uri']);
+    if(isset($biz_array['api_url']) && $biz_array['api_url']){
+      $endpoint = $endpoint.$biz_array['api_url'];
+      unset($biz_array['api_url']);
     }else{
-      throw new BusinessException("Missing the request uri");
+      throw new BusinessException("Missing the request api url");
     }
-    $payload['biz_content'] = json_encode($biz_array);
-    
+
+    $payload['biz_content'] = json_encode($biz_array['biz_content']);
+
     $payload['sign'] = Support::generateSign($payload);
     
     Events::dispatch(new Events\RequestStarted('Post', $endpoint, $payload));
     
     $endpoint = Support::buildUrlEncode("post",$endpoint,$payload);
+
     return Support::requestApi('post',$endpoint,$payload);
   }
 }

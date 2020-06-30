@@ -3,21 +3,21 @@
 namespace Greenpacket\Kiple\Gateways\Gateway;
 
 use Greenpacket\Kiple\Events;
-use Greenpacket\Kiple\Exceptions\GatewayException;
-use Greenpacket\Kiple\Exceptions\InvalidConfigException;
-use Greenpacket\Kiple\Exceptions\InvalidSignException;
-use Greenpacket\Kiple\Gateways\Gateway;
 use Greenpacket\Kiple\Logger;
-use Greenpacket\Kiple\Supports\Arr;
-use Greenpacket\Kiple\Supports\Collection;
-use Greenpacket\Kiple\Supports\Config;
 use Greenpacket\Kiple\Supports\Str;
+use Greenpacket\Kiple\Supports\Arr;
+use Greenpacket\Kiple\Supports\Config;
+use Greenpacket\Kiple\Gateways\Gateway;
+use Greenpacket\Kiple\Supports\Collection;
+use Greenpacket\Kiple\Exceptions\GatewayException;
 use Greenpacket\Kiple\Supports\Traits\HasHttpRequest;
+use Greenpacket\Kiple\Exceptions\InvalidSignException;
+use Greenpacket\Kiple\Exceptions\InvalidConfigException;
 
 /**
  * @author Evans <evans.yang@greenpacket.com.cn>
  *
- * @property string app_id alipay app_id
+ * @property string app_id merchant app_id
  * @property string public_key
  * @property string private_key
  * @property array http http options
@@ -28,7 +28,7 @@ class Support
   use HasHttpRequest;
 
   /**
-   * Alipay gateway.
+   * gateway.
    *
    * @var string
    */
@@ -107,7 +107,7 @@ class Support
   }
 
   /**
-   * Get Alipay API result.
+   * Get Gateway API result.
    *
    * @author Evans <evans.yang@greenpacket.com.cn>
    *
@@ -121,25 +121,24 @@ class Support
    */
   public static function requestApi(string $method,string $endpoint,array $data): Collection
   {
-      
     Events::dispatch(new Events\ApiRequesting(Str::studly($method), self::$instance->getBaseUri(), $data));
 
     $data = array_filter($data, function ($value) {
-        return ($value == '' || is_null($value)) ? false : true;
+      return ($value == '' || is_null($value)) ? false : true;
     });
 
-
     if($method == 'get'){
-        $result = self::$instance->get($endpoint, $data);
+      $result = self::$instance->get($endpoint, $data);
     }else if($method == 'post'){
-        $params = "biz_content=".urlencode($data['biz_content']);
-        $result = self::$instance->post($endpoint, $params);
+      $params = "biz_content=".urlencode($data['biz_content']);
+      $result = self::$instance->post($endpoint, $params);
     }
     
-    $result = json_decode($result, true);
-
+    if(gettype($result) !== 'array'){
+      $result = json_decode($result, true);
+    }
+    
     Events::dispatch(new Events\ApiRequested(Str::studly($method), self::$instance->getBaseUri(), $result));
-
     return new Collection($result);
   }
 
@@ -170,7 +169,6 @@ class Support
             "\n-----END RSA PRIVATE KEY-----";
     }
 
-
     openssl_sign(self::getSignContent($params), $sign, $privateKey, OPENSSL_ALGO_SHA256);
 
     $sign = base64_encode($sign);
@@ -179,7 +177,7 @@ class Support
     Logger::debug('The Request Generate Sign', [$params, $sign]);
 
     if (is_resource($privateKey)) {
-        openssl_free_key($privateKey);
+      openssl_free_key($privateKey);
     }
     return $sign;
   }
@@ -296,6 +294,8 @@ class Support
     return $default;
   }
 
+
+
   /**
    * Get Base Uri.
    *
@@ -307,6 +307,32 @@ class Support
   {
     return $this->baseUri;
   }
+
+  /**
+     * processingApiResult.
+     *
+     * @author Evans <evans.yang@greenpacket.com.cn>
+     *
+     * @param $result
+     *
+     * @throws GatewayException
+     * @throws InvalidConfigException
+     * @throws InvalidSignException
+     */
+    protected static function processingApiResult($result): Collection
+    {
+      if (!isset($result['sign']) || '0' != $result['code']) {
+        throw new GatewayException('API Error:'.$result['msg'].(isset($result['sub_code']) ? (' - '.$result['sub_code']) : ''), $result);
+      }
+
+      if (self::verifySign($result[$method], true, $result['sign'])) {
+        return new Collection($result[$method]);
+      }
+
+      Events::dispatch(new Events\SignFailed('', $result));
+
+      throw new InvalidSignException('The Response Sign Verify FAILED', $result);
+    }
 
   /**
    * Set Http options.
@@ -331,7 +357,8 @@ class Support
    * @author Evans Yang <evans.yang@greenpacket.com.cn>
    * @return float
    */
-  public static function getMillisecond() {
+  public static function getMillisecond(): float
+  {
     list($msec, $sec) = explode(' ', microtime());
     return (float)sprintf('%.0f', (floatval($msec) + floatval($sec)) * 1000);
   }
@@ -360,7 +387,7 @@ class Support
       }
     }
 
-    Logger::debug("Build The ".Str::studly($method)." Request Uri  Before Trim", [$data, $endpoint]);
+    Logger::debug("Build The ".Str::studly($method)." Gateway Public Parameters Request Uri:", [$data, $endpoint]);
 
     return trim($endpoint, '&');
   }

@@ -19,7 +19,7 @@ use Greenpacket\Kiple\Contracts\GatewayApplicationInterface;
 
 
 /**
- * @method Collection   get(array $config)      the get gateway
+ * @method Collection  get(array $config)       the get gateway
  * @method Collection post(array $config)       the post gateway 
  * @method Collection verfiy(array $config)     the return verify
  */
@@ -40,13 +40,6 @@ class Gateway implements GatewayApplicationInterface
   protected $gateway;
 
   /**
-   * extends.
-   *
-   * @var array
-   */
-  protected $extends;
-
-  /**
    * Bootstrap.
    *
    * @author Evans <evans.yang@greenpacket.com.cn>
@@ -58,10 +51,10 @@ class Gateway implements GatewayApplicationInterface
     $this->gateway = Support::create($config)->getBaseUri();
     $this->payload = [
       'app_id'         => $config->get('app_id'),
-      'format'         => 'JSON',
-      'charset'        => 'UTF-8',
-      'sign_type'      => 'RSA2',
-      'version'        => '1.0.0',
+      'format'         => $config->get('format','JSON'),
+      'charset'        => $config->get('charset','UTF-8'),
+      'version'        => $config->get('version','1.0.0'),
+      'sign_type'      => $config->get('sign_type','RSA2'),
       'return_url'     => $config->get('return_url'),
       'notify_url'     => $config->get('notify_url'),
       'timestamp'      => Support::getMillisecond(),
@@ -88,10 +81,6 @@ class Gateway implements GatewayApplicationInterface
    */
   public function __call($method, $params)
   {
-    // if (isset($this->extends[$method])) {
-    //   return $this->makeExtend($method, ...$params);
-    // }
-
     return $this->gateway($method, ...$params);
   }
 
@@ -124,7 +113,7 @@ class Gateway implements GatewayApplicationInterface
       return $this->makeGateway($gateway);
     }
 
-    throw new InvalidGatewayException("Pay Gateway [{$gateway}] not exists");
+    throw new InvalidGatewayException("The Gateway [{$gateway}] not exists");
   }
 
   /**
@@ -136,6 +125,7 @@ class Gateway implements GatewayApplicationInterface
    *
    * @throws InvalidSignException
    * @throws InvalidConfigException
+   * @throws InvalidArgumentException
    */
   public function verify($data = null, bool $refund = false): Collection
   {
@@ -145,8 +135,12 @@ class Gateway implements GatewayApplicationInterface
       $data = $request->request->count() > 0 ? $request->request->all() : $request->query->all();
     }
 
-    if (isset($data['fund_bill_list'])) {
-      $data['fund_bill_list'] = htmlspecialchars_decode($data['fund_bill_list']);
+    if (!isset($data['sign'])) {
+      throw new InvalidArgumentException("Missing the signature parameter.");
+    }
+
+    if (!isset($data['timestamp']) && Support::getMillisecond() - $data['timestamp'] > 30000){
+      throw new InvalidSignException("Sign Verify FAILED",$data);
     }
 
     Events::dispatch(new Events\RequestReceived('', $data));
@@ -180,78 +174,5 @@ class Gateway implements GatewayApplicationInterface
     }
 
     throw new InvalidGatewayException("The Gateway [{$gateway}] Must Be An Instance Of GatewayInterface");
-  }
-
-  /**
-   * extend.
-   *
-   * @author Evans <evans.yang@greenpacket.com.cn>
-   *
-   * @throws GatewayException
-   * @throws InvalidConfigException
-   * @throws InvalidSignException
-   * @throws InvalidArgumentException
-   */
-  public function extend(string $method, callable $function, bool $now = true): ?Collection
-  {
-    if (!$now && !method_exists($this, $method)) {
-      $this->extends[$method] = $function;
-      return null;
-    }
-
-    $customize = $function($this->payload);
-
-    if (!is_array($customize) && !($customize instanceof Collection)) {
-      throw new InvalidArgumentException('Return Type Must Be Array Or Collection');
-    }
-
-    Events::dispatch(new Events\MethodCalled('extend', $this->gateway, $customize));
-
-    if (is_array($customize)) {
-      $this->payload = $customize;
-      $this->payload['sign'] = Support::generateSign($this->payload);
-
-      return Support::requestApi($this->payload);
-    }
-
-    return $customize;
-  }
-
-  /**
-   * makeExtend.
-   *
-   * @author Evans <evans.yang@greenpacket.com.cn>
-   *
-   * @throws GatewayException
-   * @throws InvalidArgumentException
-   * @throws InvalidConfigException
-   * @throws InvalidSignException
-   */
-  protected function makeExtend(string $method, array ...$params): Collection
-  {
-    $params = count($params) >= 1 ? $params[0] : $params;
-
-    $function = $this->extends[$method];
-
-    $customize = $function($this->payload, $params);
-
-    if (!is_array($customize) && !($customize instanceof Collection)) {
-      throw new InvalidArgumentException('Return Type Must Be Array Or Collection');
-    }
-
-    Events::dispatch(new Events\MethodCalled(
-      'extend - '.$method,
-      $this->gateway,
-      is_array($customize) ? $customize : $customize->toArray()
-    ));
-
-    if (is_array($customize)) {
-      $this->payload = $customize;
-      $this->payload['sign'] = Support::generateSign($this->payload);
-
-      return Support::requestApi($this->payload);
-    }
-
-    return $customize;
   }
 }

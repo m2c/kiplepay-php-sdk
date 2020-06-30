@@ -3,17 +3,18 @@
 namespace Greenpacket\Kiple;
 
 use Exception;
-use Greenpacket\Kiple\Contracts\GatewayApplicationInterface;
-use Greenpacket\Kiple\Exceptions\InvalidGatewayException;
+use Greenpacket\Kiple\Supports\Log;
+use Greenpacket\Kiple\Supports\Str;
+use Greenpacket\Kiple\Supports\Logger;
+use Greenpacket\Kiple\Supports\Config;
 use Greenpacket\Kiple\Gateways\Gateway;
 use Greenpacket\Kiple\Listeners\KernelLogSubscriber;
-use Greenpacket\Kiple\Supports\Config;
-use Greenpacket\Kiple\Supports\Log;
-use Greenpacket\Kiple\Supports\Logger;
-use Greenpacket\Kiple\Supports\Str;
+use Greenpacket\Kiple\Exceptions\InvalidGatewayException;
+use Greenpacket\Kiple\Contracts\GatewayApplicationInterface;
 
 class Kiple
 {
+  
   /**
    * Config.
    *
