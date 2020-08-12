@@ -53,12 +53,16 @@ trait HasHttpRequest
    *
    * @return array|string
    */
-  public function post(string $endpoint, $data, array $options = [])
+  public function post(string $endpoint, $data, string $type = '',array $options = [])
   {
-    if (!is_array($data)) {
-      $options['body'] = $data;
-    } else {
-      $options['form_params'] = $data;
+    if ($type == 'file'){
+      $options['multipart'] = $data;
+    }else{
+      if (!is_array($data)) {
+        $options['body'] = $data;
+      } else {
+        $options['form_params'] = $data;
+      }
     }
 
     return $this->request('post', $endpoint, $options);

@@ -26,6 +26,7 @@ class PostGateway extends KipleGateway
    */
   public function gateway($endpoint, array $payload): Collection
   {
+
     $biz_array = json_decode($payload['biz_content'], true);
 
     if(isset($biz_array['api_url']) && $biz_array['api_url']){
@@ -42,7 +43,7 @@ class PostGateway extends KipleGateway
     Events::dispatch(new Events\RequestStarted('Post', $endpoint, $payload));
     
     $endpoint = Support::buildUrlEncode("post",$endpoint,$payload);
-
+    
     return Support::requestApi('post',$endpoint,$payload);
   }
 }

@@ -132,6 +132,8 @@ class Support
     }else if($method == 'post'){
       $params = "biz_content=".urlencode($data['biz_content']);
       $result = self::$instance->post($endpoint, $params);
+    }else if($method == 'files'){
+      $result = self::$instance->post($endpoint, $data,'file');
     }
     
     if(gettype($result) !== 'array'){
@@ -249,7 +251,6 @@ class Support
             $stringToBeSigned .= $k.'='.$v.'&';
         }
     }
-
     Logger::debug('Generate Sign Content Before Trim', [$data, $stringToBeSigned]);
 
     return trim($stringToBeSigned, '&');

@@ -51,6 +51,7 @@ class Gateway implements GatewayApplicationInterface
     $this->gateway = Support::create($config)->getBaseUri();
     $this->payload = [
       'app_id'         => $config->get('app_id'),
+      'token'          => $config->get('http.headers.token'),
       'format'         => $config->get('format','JSON'),
       'charset'        => $config->get('charset','UTF-8'),
       'version'        => $config->get('version','1.0.0'),
