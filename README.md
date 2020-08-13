@@ -71,7 +71,7 @@ If an error occurs while calling the associated gateway, That will thrown some e
   # Get gateway request.
   try{
     $response = Kiple::gateway($config)->get([
-      'api_url'=> 'user/api/v1.0/users/check-pin'
+      'api_url'=> '/user/api/v1.0/users/check-pin'
       'biz_content'=> [
         'pin'=>'2',
         'user_id'=>29,
@@ -85,10 +85,28 @@ If an error occurs while calling the associated gateway, That will thrown some e
   # Post gateway request.
   try{
     $response = Kiple::gateway($config)->post([
-      'api_url'=> 'user/api/v1.0/users/check-pin'
+      'api_url'=> '/user/api/v1.0/users/check-pin'
       'biz_content'=> [
         'pin'=>'2',
         'user_id'=>29,
+      ]
+    ]);
+    echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+  }catch(\Exception $e){
+    die($e->getMessage());
+  }
+
+  #File gateway request.
+    try{
+    $response = Kiple::gateway($config)->files([
+      'api_url'=> '/user/api/v1.0/users/check-pin'
+      'biz_content'=> [
+        'pin'=>'2',
+        'user_id'=>29,
+      ],
+      'file_content'=>[
+        'file_one'=>'./files/test_1.jpeg',
+        'file_two'=>'./files/test_2.jpeg',
       ]
     ]);
     echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
