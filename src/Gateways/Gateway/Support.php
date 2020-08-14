@@ -1,18 +1,18 @@
 <?php
 
-namespace Greenpacket\Kiple\Gateways\Gateway;
+namespace Greenpacket\KiplePay\Gateways\Gateway;
 
-use Greenpacket\Kiple\Events;
-use Greenpacket\Kiple\Logger;
-use Greenpacket\Kiple\Supports\Str;
-use Greenpacket\Kiple\Supports\Arr;
-use Greenpacket\Kiple\Supports\Config;
-use Greenpacket\Kiple\Gateways\Gateway;
-use Greenpacket\Kiple\Supports\Collection;
-use Greenpacket\Kiple\Exceptions\GatewayException;
-use Greenpacket\Kiple\Supports\Traits\HasHttpRequest;
-use Greenpacket\Kiple\Exceptions\InvalidSignException;
-use Greenpacket\Kiple\Exceptions\InvalidConfigException;
+use Greenpacket\KiplePay\Events;
+use Greenpacket\KiplePay\Logger;
+use Greenpacket\KiplePay\Supports\Str;
+use Greenpacket\KiplePay\Supports\Arr;
+use Greenpacket\KiplePay\Supports\Config;
+use Greenpacket\KiplePay\Gateways\Gateway;
+use Greenpacket\KiplePay\Supports\Collection;
+use Greenpacket\KiplePay\Exceptions\GatewayException;
+use Greenpacket\KiplePay\Supports\Traits\HasHttpRequest;
+use Greenpacket\KiplePay\Exceptions\InvalidSignException;
+use Greenpacket\KiplePay\Exceptions\InvalidConfigException;
 
 /**
  * @author Evans <evans.yang@greenpacket.com.cn>

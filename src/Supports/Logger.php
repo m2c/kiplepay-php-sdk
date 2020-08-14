@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple\Supports;
+namespace Greenpacket\KiplePay\Supports;
 
 use Exception;
 use Monolog\Formatter\FormatterInterface;

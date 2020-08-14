@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple\Supports;
+namespace Greenpacket\KiplePay\Supports;
 
 /**
  * @method static void emergency($message, array $context = array())
@@ -64,7 +64,7 @@ class Log extends Logger
      *
      * @author Evans <evans.yang@greenpacket.com.cn>
      *
-     * @return \Greenpacket\Kiple\Supports\Logger
+     * @return \Greenpacket\KiplePay\Supports\Logger
      */
     public static function getInstance(): Logger
     {
@@ -80,7 +80,7 @@ class Log extends Logger
      *
      * @author Evans <evans.yang@greenpacket.com.cn>
      *
-     * @param \Greenpacket\Kiple\Supports\Logger $logger
+     * @param \Greenpacket\KiplePay\Supports\Logger $logger
      *
      * @throws \Exception
      */

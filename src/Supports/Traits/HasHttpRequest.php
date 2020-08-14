@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple\Supports\Traits;
+namespace Greenpacket\KiplePay\Supports\Traits;
 
 use Exception;
 use GuzzleHttp\Client;

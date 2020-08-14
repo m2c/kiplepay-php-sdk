@@ -1,11 +1,11 @@
 <?php
 
-namespace Greenpacket\Kiple\Tests;
+namespace Greenpacket\KiplePay\Tests;
 
-use Greenpacket\Kiple\Kiple;
-use Greenpacket\Kiple\Gateways\Gateway;
-use Greenpacket\Kiple\Exceptions\InvalidGatewayException;
-use Greenpacket\Kiple\Contracts\GatewayApplicationInterface;
+use Greenpacket\KiplePay\Kiple;
+use Greenpacket\KiplePay\Gateways\Gateway;
+use Greenpacket\KiplePay\Exceptions\InvalidGatewayException;
+use Greenpacket\KiplePay\Contracts\GatewayApplicationInterface;
 
 
 class KipleTest extends TestCase

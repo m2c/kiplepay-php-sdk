@@ -1,21 +1,21 @@
 <?php
 
-namespace Greenpacket\Kiple\Gateways;
+namespace Greenpacket\KiplePay\Gateways;
 
-use Greenpacket\Kiple\Events;
-use Greenpacket\Kiple\Supports\Str;
-use Greenpacket\Kiple\Supports\Config;
-use Greenpacket\Kiple\Supports\Collection;
+use Greenpacket\KiplePay\Events;
+use Greenpacket\KiplePay\Supports\Str;
+use Greenpacket\KiplePay\Supports\Config;
+use Greenpacket\KiplePay\Supports\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Greenpacket\Kiple\Gateways\Gateway\Support;
-use Greenpacket\Kiple\Contracts\GatewayInterface;
-use Greenpacket\Kiple\Exceptions\GatewayException;
-use Greenpacket\Kiple\Exceptions\InvalidSignException;
-use Greenpacket\Kiple\Exceptions\InvalidConfigException;
-use Greenpacket\Kiple\Exceptions\InvalidGatewayException;
-use Greenpacket\Kiple\Exceptions\InvalidArgumentException;
-use Greenpacket\Kiple\Contracts\GatewayApplicationInterface;
+use Greenpacket\KiplePay\Gateways\Gateway\Support;
+use Greenpacket\KiplePay\Contracts\GatewayInterface;
+use Greenpacket\KiplePay\Exceptions\GatewayException;
+use Greenpacket\KiplePay\Exceptions\InvalidSignException;
+use Greenpacket\KiplePay\Exceptions\InvalidConfigException;
+use Greenpacket\KiplePay\Exceptions\InvalidGatewayException;
+use Greenpacket\KiplePay\Exceptions\InvalidArgumentException;
+use Greenpacket\KiplePay\Contracts\GatewayApplicationInterface;
 
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple\Events;
+namespace Greenpacket\KiplePay\Events;
 
 class RequestReceived extends Event
 {

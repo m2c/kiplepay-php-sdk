@@ -1,10 +1,10 @@
 <?php
 
-namespace Greenpacket\Kiple\Gateways\Gateway;
+namespace Greenpacket\KiplePay\Gateways\Gateway;
 
-use Greenpacket\Kiple\Supports\Collection;
-use Greenpacket\Kiple\Contracts\GatewayInterface;
-use Greenpacket\Kiple\Exceptions\InvalidArgumentException;
+use Greenpacket\KiplePay\Supports\Collection;
+use Greenpacket\KiplePay\Contracts\GatewayInterface;
+use Greenpacket\KiplePay\Exceptions\InvalidArgumentException;
 
 abstract class KipleGateway implements GatewayInterface
 {

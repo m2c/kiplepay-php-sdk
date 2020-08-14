@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple\Exceptions;
+namespace Greenpacket\KiplePay\Exceptions;
 
 class InvalidSignException extends Exception
 {

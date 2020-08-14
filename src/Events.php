@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple;
+namespace Greenpacket\KiplePay;
 
 use Exception;
 use Symfony\Component\EventDispatcher\EventDispatcher;

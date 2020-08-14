@@ -1,16 +1,16 @@
 <?php
 
-namespace Greenpacket\Kiple;
+namespace Greenpacket\KiplePay;
 
 use Exception;
-use Greenpacket\Kiple\Supports\Log;
-use Greenpacket\Kiple\Supports\Str;
-use Greenpacket\Kiple\Supports\Logger;
-use Greenpacket\Kiple\Supports\Config;
-use Greenpacket\Kiple\Gateways\Gateway;
-use Greenpacket\Kiple\Listeners\KernelLogSubscriber;
-use Greenpacket\Kiple\Exceptions\InvalidGatewayException;
-use Greenpacket\Kiple\Contracts\GatewayApplicationInterface;
+use Greenpacket\KiplePay\Supports\Log;
+use Greenpacket\KiplePay\Supports\Str;
+use Greenpacket\KiplePay\Supports\Logger;
+use Greenpacket\KiplePay\Supports\Config;
+use Greenpacket\KiplePay\Gateways\Gateway;
+use Greenpacket\KiplePay\Listeners\KernelLogSubscriber;
+use Greenpacket\KiplePay\Exceptions\InvalidGatewayException;
+use Greenpacket\KiplePay\Contracts\GatewayApplicationInterface;
 
 class Kiple
 {

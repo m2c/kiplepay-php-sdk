@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple\Tests;
+namespace Greenpacket\KiplePay\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 

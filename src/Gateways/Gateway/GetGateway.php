@@ -1,14 +1,14 @@
 <?php
 
-namespace Greenpacket\Kiple\Gateways\Gateway;
+namespace Greenpacket\KiplePay\Gateways\Gateway;
 
-use Greenpacket\Kiple\Events;
-use Greenpacket\Kiple\Supports\Collection;
+use Greenpacket\KiplePay\Events;
+use Greenpacket\KiplePay\Supports\Collection;
 use Symfony\Component\HttpFoundation\Response;
-use Greenpacket\Kiple\Contracts\GatewayInterface;
-use Greenpacket\Kiple\Exceptions\BusinessException;
+use Greenpacket\KiplePay\Contracts\GatewayInterface;
+use Greenpacket\KiplePay\Exceptions\BusinessException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Greenpacket\Kiple\Exceptions\InvalidConfigException;
+use Greenpacket\KiplePay\Exceptions\InvalidConfigException;
 
 class GetGateway extends KipleGateway
 {

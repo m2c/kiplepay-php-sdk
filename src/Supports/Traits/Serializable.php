@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Greenpacket\Kiple\Supports\Traits;
+namespace Greenpacket\KiplePay\Supports\Traits;
 
 use RuntimeException;
 

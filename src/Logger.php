@@ -1,8 +1,8 @@
 <?php
 
-namespace Greenpacket\Kiple;
+namespace Greenpacket\KiplePay;
 
-use Greenpacket\Kiple\Supports\Log AS BaseLogger;
+use Greenpacket\KiplePay\Supports\Log AS BaseLogger;
 
 /**
  * @method static void emergency($message, array $context = array())

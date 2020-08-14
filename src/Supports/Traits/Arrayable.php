@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Greenpacket\Kiple\Supports\Traits;
+namespace Greenpacket\KiplePay\Supports\Traits;
 
 use ReflectionClass;
-use Greenpacket\Kiple\Supports\Str;
+use Greenpacket\KiplePay\Supports\Str;
 
 trait Arrayable
 {

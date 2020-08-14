@@ -1,9 +1,9 @@
 <?php
 
-namespace Greenpacket\Kiple\Listeners;
+namespace Greenpacket\KiplePay\Listeners;
 
-use Greenpacket\Kiple\Events;
-use Greenpacket\Kiple\Supports\Log;
+use Greenpacket\KiplePay\Events;
+use Greenpacket\KiplePay\Supports\Log;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class KernelLogSubscriber implements EventSubscriberInterface

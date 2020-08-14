@@ -1,6 +1,6 @@
 <?php
 
-namespace Greenpacket\Kiple\Supports\Logger;
+namespace Greenpacket\KiplePay\Supports\Logger;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;

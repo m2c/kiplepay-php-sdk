@@ -1,10 +1,10 @@
 <?php
 
-namespace Greenpacket\Kiple\Tests\Gateways;
+namespace Greenpacket\KiplePay\Tests\Gateways;
 
-use Greenpacket\Kiple\Kiple;
-use Greenpacket\Kiple\Tests\TestCase;
-use Greenpacket\Kiple\Supports\Collection;
+use Greenpacket\KiplePay\Kiple;
+use Greenpacket\KiplePay\Tests\TestCase;
+use Greenpacket\KiplePay\Supports\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
 

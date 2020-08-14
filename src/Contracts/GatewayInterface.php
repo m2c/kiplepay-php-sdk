@@ -1,9 +1,9 @@
 <?php
 
-namespace Greenpacket\Kiple\Contracts;
+namespace Greenpacket\KiplePay\Contracts;
 
 use Symfony\Component\HttpFoundation\Response;
-use Greenpacket\Kiple\Supports\Collection;
+use Greenpacket\KiplePay\Supports\Collection;
 
 interface GatewayInterface
 {
