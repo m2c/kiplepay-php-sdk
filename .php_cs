@@ -1,6 +1,6 @@
 <?php
 $header = <<<EOF
-This file is part of the greenpacket/kiple.
+This file is part of the greenpacket/kiplepay.
 
 (c) Evans <evans.yang@greenpacket.com.cn>
 
