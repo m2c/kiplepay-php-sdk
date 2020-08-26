@@ -1,5 +1,5 @@
 <h1 align="center"> KiplePay PHP SDK </h1>
-<p align="center">The SDK mainly shows how to access the kiplepay gateway.</p>
+<p align="center">The SDK mainly shows how to access the kiplepay gateway (only for WaaS customers).</p>
 
 ## Installing
 
